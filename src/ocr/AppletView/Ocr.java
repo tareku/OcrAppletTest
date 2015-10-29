@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.UIManager.LookAndFeelInfo;
 import ocr.AppletModel.OcrModel;
+import ocr.AppletModel.OcrModel;
 
 public class Ocr extends JApplet implements ActionListener {
 
@@ -78,7 +79,7 @@ public class Ocr extends JApplet implements ActionListener {
             bar.setIndeterminate(true);
             ocrModel = new OcrModel();
             //return image absolute path
-            String img = ocrModel.getPassport(this);
+            String img = ocrModel.getPassport();
 //            try {
 //                BufferedImage pic = ImageIO.read(new File(img));
 //                pic = createResizedCopy(pic, 100, 100, false);
@@ -90,13 +91,15 @@ public class Ocr extends JApplet implements ActionListener {
 //                ex.printStackTrace();
 //            }
             //Return binarize image path 
-            String convertedimg = ocrModel.ConvertImage(this, img);
+            String convertedimg = ocrModel.ConvertImage(img);
             //Extract data string
-            ocrModel.dataExtract(this, convertedimg);
+            String r = ocrModel.dataExtract(convertedimg);
+            result.setText(r);
+            result.setVisible(true);
             bar.setValue(100);
             bar.setIndeterminate(false);
             //Delete binarize image
-            ocrModel.deleteConvertedImg(this, convertedimg);
+            ocrModel.deleteConvertedImg(convertedimg);
         }
     }
 
